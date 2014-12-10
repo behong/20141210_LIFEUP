@@ -1,0 +1,25 @@
+	
+[Eclipse/STS] EGit에서 강제로 Remote에서 Local로 pull 하기   Eclipse / 개발툴  
+2013/10/29 20:10
+복사http://skillsocius.com/10178908127
+전용뷰어 보기
+서로 다른 장소에서 작업을 하다 보면 분명 순차적으로 작업을 했는데도, 귀찮은 충돌로 merge 작업을 해야 하는 경우가 종종 발생한다.(SVN에서는 이런일이 없었는데...) SVN에서 git으로 넘어온지가 얼마 안되서 내가 왜 merge 작업을 하고 있는지 답답하기만 했다. (github를 중심으로 A와 B 장소에서 번갈아가며 작업했다.)
+ 
+그러다 remote에 있는 것을 강제로 pull 하는 방법을 찾아봤다. 그냥 git 명령어로 설명된 건 좀 있었다. [http://stackoverflow.com/questions/1125968/force-git-to-overwrite-local-files-on-pull]
+ 
+무려 질문의 투표수가 700이 넘고 선정된 답도 투표수가 800이 넘었다.
+ 
+주의해야 할 것은 local에 있는 모든 것이 날아간다는 것. 하지만 나 같은 경우는 확실하기 때문에 이것은 문제가 되지 않았다. 내가 사용한 방법은 다음과 같다.
+
+
+ 
+Git Repositories 탭으로 이동(일반적으로 우측 하단 팬)
+현재 작업하고 있는 프로젝트를 선택 후 확장
+Branches -> Remote Tracking 확장
+해당 항목(아마 orgin/master로 돼 있을듯)를 선택하고 우클릭
+Show In ->History 선택 (History 화면으로 이동 됨)
+내가 이동하고자하는 ID를 선택하고 우클릭
+Reset -> Hard
+
+http://skillsocius.com/10178908127
+[출처] [Eclipse/STS] EGit에서 강제로 Remote에서 Local로 pull 하기|작성자 sensible

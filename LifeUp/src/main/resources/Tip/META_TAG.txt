@@ -1,0 +1,2 @@
+-- 익스플로어 기본으로 자동조정
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=IE8" />

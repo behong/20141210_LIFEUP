@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:mvc="http://www.springframework.org/schema/mvc"
+	   xmlns:p="http://www.springframework.org/schema/p"
+	   xmlns:c="http://www.springframework.org/schema/c"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="
+	   	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	   	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	   	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+	
+	<bean id="pushService" class="salesman.push.service.PushServiceImpl">
+		<property name="pushDao1" ref="pushDao2"/>
+		<property name="API_KEY" value="AIzaSyBdrOLfBi04LKBEjjroVWZga4Ip0G4_JqI"/>		
+	</bean>
+    
+	<bean id="pushDao2" class="salesman.push.dao.PushDaoImpl">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+
+</beans>

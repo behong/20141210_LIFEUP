@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd"> 
+
+<mapper namespace="push">
+    
+	<select id="getPushList" resultType="salesman.vo.push.Device">
+		select max(uuid) uuid, max(phone) phone, reg_id, max(user_id) user_id
+		  from device
+		 group by reg_id
+	</select>
+	<select id="getOneDevice" resultType="hashmap">
+		select max(uuid) uuid, max(phone) phone, reg_id, max(user_id) user_id 
+		  from device 
+		 where user_id = #{user_id}
+		 group by reg_id
+	</select>			
+	
+	<select id="getTotalCount"  parameterType="hashmap"  resultType="integer">
+	    select count(uuid) total from device where uuid= #{uuid}
+	</select>
+	
+	<insert id="insertPushInfo">
+		insert into device (
+			user_id, reg_id, uuid, phone 
+		) values (
+			#{webId}, #{reg_id}, #{uuid}, #{phone}
+		)
+	</insert>
+	
+	<update id="updatePushInfo">
+		update device 
+		   set reg_id  = #{reg_id}
+		     , uuid    = #{uuid} 
+		     , phone   = #{phone}
+		     , update_date = now()
+		 where user_id = #{webId}
+	</update>
+	
+</mapper>

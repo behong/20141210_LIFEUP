@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:mvc="http://www.springframework.org/schema/mvc"
+	   xmlns:p="http://www.springframework.org/schema/p"
+	   xmlns:c="http://www.springframework.org/schema/c"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="
+	   	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	   	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	   	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+	
+	<!-- 사용자관리 서비스 -->
+	<bean id="accountService" class="salesman.account.service.AccountServiceImpl"> 
+		<property name="storageService" ref="storageService"/>
+		<property name="accountDao" ref="accountDao"/>		
+	</bean>
+	
+	<bean id="accountDao" class="salesman.account.dao.AccountDaoImpl">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	
+	<!-- 영업랭킹서비스 -->
+	<bean id="userPointMngService" class="salesman.account.service.UserPointMngServiceImpl"> 
+		<property name="userPointMngDao" ref="userPointMngDao"/>		
+	</bean>
+	
+	<bean id="userPointMngDao" class="salesman.account.dao.UserPointMngDaoImpl">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>	
+	
+
+</beans>

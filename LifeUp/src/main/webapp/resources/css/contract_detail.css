@@ -1,0 +1,75 @@
+
+
+.box_btn{
+display: block;
+margin: 0;
+padding: 0;
+font-size: 14px;
+line-height: 1.5;
+font-family: 'Malgun Gothic', '留묒� 怨좊뵓', sans-serif;
+color: #333;
+height: 31px;
+text-align: center;
+}
+.btn_Style{
+width: 76px;
+height: 31px;
+border-color: #790000;
+margin-left: 4px;
+font-size: 13px;
+font-weight: bold;
+line-height: 26px;
+color: #fff;
+background-color: #c91a16;
+background: -webkit-gradient(linear,left top,left bottom,from(#d32319),to(#ba0a12));
+-webkit-box-shadow: inset 1px 1px 0 rgba(255,242,0,0.07), inset -1px -1px 0 rgba(255,242,0,0.07);
+box-shadow: inset 1px 1px 0 rgba(255,242,0,0.07), inset -1px -1px 0 rgba(255,242,0,0.07);
+text-decoration: none;
+display: inline-block;
+padding: 0;
+border: 1px solid;
+text-align: center;
+}
+.result_cnt1{
+margin: 0;
+padding: 0;
+color: #333;
+font-family: 'Malgun Gothic','Droid Sans','Apple-Gothic','애플고딕','Tahoma',dotum,'돋움',gulim,'굴림',sans-serif;
+font-weight: bold;
+font-size: 16px;
+line-height: 1.25em;
+}
+
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,select,textarea,p,blockquote,th,td,legend,button{margin:0;padding:0;color:#333;font-family:'Malgun Gothic','Droid Sans','Apple-Gothic','애플고딕','Tahoma',dotum,'돋움',gulim,'굴림',sans-serif;font-weight:bold;font-size:16px;line-height: 1.25em;-webkit-text-size-adjust:none;}/*사파리 회전시 폰트 크기 고정하기*/
+.tbl_1 table{width:100%;table-layout:fixed;}
+.tbl_1 table th,
+.tbl_1 table td{height:25px;padding:7px 0;border:1px solid #d8d8d8;font-size:1.2em;line-height:1.2em;letter-spacing:-1px;font-weight:normal;}
+/*.tbl_1 table th:first-child{border-left:none}*/
+.tbl_1 table th{padding-left:10px;background:#f9f9f9;text-align:left;color:#111;font-size:0.81em;}
+.tbl_1 table td{padding-left:10px;padding-right:10px;color:#656565;font-size:0.87em;}
+.tbl_1 table td .stra{display:block;color:#055BC2;}
+.tbl_1 table td .price{color:#eb2c06 ;font-size:1.2em}
+.tbl_1 table td .line1 .tit{width:55px;display:inline-block;background:#fff url(https://sslimage.gmarket.co.kr/Gmarket_Mobile_new/480/bg_colone2.gif) no-repeat right 5px;}
+.tbl_1 table td .line1 .thty{display:inline-block;}
+.tbl_1 table td .mobile_py{position:relative;width:100%;height:25px;}
+.tbl_1 table td .mobile_py .tit_agr{position:absolute;top:6px;left:0;width:133px;padding:0}
+.tbl_1 table td .mobile_py .tit_agr input{vertical-align:top;margin-top:1px;}
+.tbl_1 table td .mobile_py .btn_agr{position:absolute;top:0;right:0;height:25px;margin-bottom:1px;border:1px solid #bdbdbd;box-shadow:0 1px 1px #787878}
+.tbl_1 table td .mobile_py .btn_agr span{display:block;width:65px;height:19px;padding-top:5px;border:1px solid #fff;background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fefefe), color-stop(100%,#ececec));font-size:1em;color:#4d4d4d;text-align:center}
+.tbl_1 table td .input{vertical-align:middle}
+.tbl_1 table td .btn_reSend{display:inline-block;height:25px;margin:1px 0 0 7px;border:1px solid #bdbdbd;box-shadow:0 1px 1px #787878;vertical-align:middle}
+.tbl_1 table td .btn_reSend span{display:inline-block;width:65px;height:19px;padding-top:5px;border:1px solid #fff;background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fefefe), color-stop(100%,#ececec));font-size:1em;color:#4d4d4d;text-align:center}
+
+.tbl_1 table td input,
+.tbl_1 table td select{color:#656565;font-size:1em;font-weight:normal;padding:0 5px;}
+
+.tbl_1 table td select.tel1 {height:25px;width:37%;min-width:40px;padding:0 27px 0 0;text-align:center;}
+.tbl_1 table td input.tel2  {height:25px;width:24.5%;min-width:41px;text-align:center;padding:0;}
+.tbl_1 table td input.tel3  {height:25px;width:24.5%;min-width:41px;text-align:center;padding:0;}
+.tbl_1 table td input.regNum{height:25px;width:46%;min-width:66px;text-align:center;padding:0;}
+.tbl_1 table td input.passwd{height:25px;width:50%;min-width:113px;}
+.tbl_1 table td input.text  {height:25px;width:50%;min-width:113px;}
+.tbl_1 table td .authWrap{position:relative;padding-right:79px;}
+.tbl_1 table td .authWrap input{width:100%;height:25px;text-align:center;padding:0;}
+.tbl_1 table td .authWrap a{position:absolute;top:-1px;right:5px;}
+.tbl_1 table td strong.auth_time{color:#eb2c06;}

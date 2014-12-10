@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd"> 
+
+<mapper namespace="mypage">
+    
+	<select id="getMyList" resultType="salesman.vo.mypage.MypageVO">
+		select REQUEST_ID as req_id,CUSTOMER_REQ,STATUS,CREATE_DATE 
+		  from estimate_request
+		 where CUSTOMER_ID = #{user_id}
+		 order by REQUEST_ID desc
+	</select>
+	<select id="getMySellerList" resultType="salesman.vo.mypage.MypageVO">
+		select REQUEST_ID as req_id,SALESMAN_BENEFIT,STATUS,CREATE_DATE 
+		  from estimate_contract
+		 where SALESMAN_ID = #{user_id}
+		 order by REQUEST_ID desc
+	</select>	
+
+	<select id="getReceiptList" resultType="salesman.vo.mypage.ReceiptVO">
+		SELECT DATE(A.REQUEST_DATE) requestDate
+		     , AMOUNT
+		     , POINT
+		     , TOTAL_POINT totalPoint
+			 , STATUS
+		     , (SELECT CODE_NM FROM CODES WHERE CODE_GROUP = '1004' AND CODE_CD = A.STATUS) STATUS_NM
+			 , A.CONFIRM_DATE confirmDate
+		  FROM RECEIPT A
+		 WHERE SALESMAN_ID = #{user_id}
+		 ORDER BY REQUEST_DATE DESC
+	</select>
+	
+	<select id="getCashLogList" resultType="salesman.vo.mypage.MypageVO">
+			SELECT 
+			 cash_point as Point
+			,customer_req
+			,(
+				select code_nm from codes
+				where code_group ='1001'
+			       and code_cd = ( SELECT status FROM estimate_request WHERE request_id =A.request_id )
+			 ) as status
+			,create_date
+			FROM cash_use_log AS A
+			where salesman_id=#{user_id}
+			ORDER BY create_date DESC
+	</select>
+	
+
+<!-- 	<select id="chkPass" resultType="integer" >
+		select count(SALESMAN_ID) 
+		  from  salesman
+		 where SALESMAN_ID = #{user_id}
+		 AND  PWD =#{password}
+	</select>	
+	
+	<select id="chkPass_customer" resultType="integer" >
+		select count(CUSTOMER_ID) 
+		  from  customer
+		 where CUSTOMER_ID = #{user_id}
+		 AND  PWD =#{password}
+	</select>		
+	
+	<select id="getOneDevice" resultType="hashmap">
+		select uuid, phone, reg_id, user_id 
+		  from device 
+		 where user_id = #{user_id}
+	</select>			
+	
+	<select id="getTotalCount"  parameterType="hashmap"  resultType="integer">
+	    select count(uuid) total from device where uuid= #{uuid}
+	</select>
+	
+	<insert id="insertPushInfo">
+		insert into device (
+			uuid, phone, reg_id, user_id
+		) values (
+			#{uuid}, #{phone}, #{reg_id}, #{webId}
+		)
+	</insert>
+	
+	<update id="updatePushInfo">
+		update device 
+		   set phone=#{phone}
+		     , reg_id=#{reg_id}
+		     , user_id=#{webId}
+		     , update_date = now()
+		where uuid=#{uuid}
+	</update> -->
+	
+</mapper>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd"> 
+
+<mapper namespace="common">
+
+	<!-- 지역 시 를  가지고 온다  -->
+	<select id="getSido" resultType="salesman.common.define.RegionVo">
+	   select SIDO_CD, SIDO_NM from region
+ 	   group by SIDO_CD, SIDO_NM
+	   order by SIDO_CD asc
+	</select>
+	
+	<!-- 구 를  가지고 온다  -->	
+	<select id="getGu" parameterType="salesman.common.define.RegionVo"  resultType="salesman.common.define.RegionVo">
+		select GUGUN_CD, GUGUN_NM from region
+		where SIDO_CD = #{sido_cd}
+	</select>
+	
+	<select id="getVendorCodes" resultType="java.util.HashMap">
+		SELECT VENDOR_ID code, VENDOR_NM value 
+		  FROM vendor;
+	</select>	
+	
+	<!--  vendor id 로 자동차 종류/ ID 를 가져온다 -->
+	<select id="getCarCode" resultType="java.util.HashMap">
+		SELECT car_id,car_nm FROM CAR_MASTER
+		 WHERE VENDOR_ID= #{vender_id}
+	</select>	
+
+</mapper>

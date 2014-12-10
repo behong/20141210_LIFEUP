@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+ xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://www.springframework.org/schema/beans   
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+       
+<!-- 
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://211.218.126.142:3388/salesman" />
+		<property name="username" value="nayha" />
+		<property name="password" value="1122" />
+	</bean> 
+	-->
+	<!-- 커넥션 pool 이 자꾸 죽어서
+	http://okjsp.net/seq/164591#1410756561192
+	http://sugame.tistory.com/274 사이트 참고 
+	url 과  validationQuery 쿼리를 추가했음
+	2014-09-15
+	 -->
+	 <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="validationQuery"  value="SELECT 1" />
+		<property name="url" value="jdbc:mysql://104.236.164.79:3306/salesman?autoReconnect=true" />
+		<property name="username" value="root" />
+		<property name="password" value="1111" />
+	</bean>
+	 <!-- 
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="validationQuery"  value="SELECT 1" />
+		<property name="url" value="jdbc:mysql://vavacar.com:3388/salesman?autoReconnect=true" />
+		<property name="username" value="root" />
+		<property name="password" value="hg1122" />
+	</bean>	
+	 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+			<property name="dataSource" ref="dataSource" />
+			<property name="configLocation" value="classpath:config/spring/mybatis-config.xml" />
+	</bean>
+		
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+			<constructor-arg ref="sqlSessionFactory" />
+	</bean>
+</beans>
+

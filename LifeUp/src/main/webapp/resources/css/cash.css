@@ -1,0 +1,176 @@
+img {
+border: 0 none;
+vertical-align: top;
+}
+#content {
+float: right;
+width: 640px;
+position: relative;
+z-index: 800;
+zoom: 1;
+}
+body {
+font: 12px verdana, gulim,  dotum,  "Apple SD Gothic Neo", sans-serif;
+color: #666;
+}
+.mtuPwrOpt .feeAdd {
+height: 79px;
+float:left;
+margin-left:0px;
+margin-top:0px;
+border-top: 1px solid #d9d9d9;
+border-bottom: 1px solid #d9d9d9;
+background-color: #f9f9f9;
+margin-bottom: 26px;
+padding: 6px 0 0 18px;
+clear: both;
+}
+.mtuPwrOpt .feeAdd li {
+color: #373737;
+line-height: 16px;
+letter-spacing: -1px;
+padding: 4px 0;
+vertical-align: middle;
+list-style: none;
+display: list-item;
+text-align: -webkit-match-parent;
+}
+.amount{
+    margin-left:10px;
+    float:left;
+    width:100px;
+    text-align:center;
+    padding:10px;
+    border:1px solid #999;
+}
+.receipter_nm {
+    margin-left:10px;
+    float:left;
+    width:100px;
+    text-align:center;
+    padding:10px;
+    border:1px solid #999;
+}
+
+
+.Cash_box_btn{
+	display: block;
+	margin: 0;
+	padding: 0;
+	font-size: 14px;
+	line-height: 1.5;
+	font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
+	color: #333;
+	height: 31px;
+	text-align: center;
+}
+.cashCancelButton {
+width: 76px;
+height: 31px;
+border-color: #aaa;
+font-size: 13px;
+font-weight: bold;
+line-height: 26px;
+background: -webkit-gradient(linear,left top,left bottom,from(#fefefe),to(#efefef));
+background-color: #efefef;
+display: inline-block;
+padding: 0;
+border: 1px solid;
+text-decoration: none;
+text-align: center;
+font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
+color: #333;
+}
+.cashDaum_Style{
+width: 76px;
+height: 31px;
+border-color: #790000;
+margin-left: 4px;
+font-size: 13px;
+font-weight: bold;
+line-height: 26px;
+color: #fff;
+background-color: #c91a16;
+background: -webkit-gradient(linear,left top,left bottom,from(#d32319),to(#ba0a12));
+-webkit-box-shadow: inset 1px 1px 0 rgba(255,242,0,0.07), inset -1px -1px 0 rgba(255,242,0,0.07);
+box-shadow: inset 1px 1px 0 rgba(255,242,0,0.07), inset -1px -1px 0 rgba(255,242,0,0.07);
+text-decoration: none;
+display: inline-block;
+padding: 0;
+border: 1px solid;
+text-align: center;
+}
+
+/*
+.cashButton {
+    margin-left:10px;
+    float:left;
+    width:100px;
+    text-align:center;
+    padding:10px;
+    border:1px solid #999;
+    clear: both; 
+}
+.cashButton:hover {
+    margin-left:10px;
+    float:left;
+    width:100px;
+    text-align:center;
+    padding:10px;
+    border:1px solid #999;
+    background:#333;
+    color:#fff;
+}
+*/
+
+h3 { 	
+		font-size: 1.2em; background: #B00A0A url(/resources/img/cash/redbg.gif) repeat-x left bottom; padding: 6px 7px; 
+	 	color: #fff; font-weight: normal; margin: 0 0 15px; float: left; 
+ 	}
+ 	
+p { clear: both; line-height: 1.64em; margin: 0 0 15px; } 	
+.third { float: left; width: 296px; margin: 0 40px 20px 0; }
+
+.result_cnt1{
+margin: 0;
+padding: 0;
+color: #333;
+font-family: 'Malgun Gothic','Droid Sans','Apple-Gothic','애플고딕','Tahoma',dotum,'돋움',gulim,'굴림',sans-serif;
+font-weight: bold;
+font-size: 16px;
+line-height: 1.25em;
+}
+
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,select,textarea,p,blockquote,th,td,legend,button{margin:0;padding:0;color:#333;font-family:'Malgun Gothic','Droid Sans','Apple-Gothic','애플고딕','Tahoma',dotum,'돋움',gulim,'굴림',sans-serif;font-weight:bold;font-size:16px;line-height: 1.25em;-webkit-text-size-adjust:none;}/*사파리 회전시 폰트 크기 고정하기*/
+.tbl_1 table{width:100%;table-layout:fixed;}
+.tbl_1 table th,
+.tbl_1 table td{height:25px;padding:7px 0;border:1px solid #d8d8d8;font-size:1.2em;line-height:1.2em;letter-spacing:-1px;font-weight:normal;}
+.tbl_1 table th:first-child{border-left:none}
+.tbl_1 table th{padding-left:10px;background:#f9f9f9;text-align:left;color:#111;font-size:0.81em;}
+.tbl_1 table td{padding-left:10px;padding-right:10px;color:#656565;font-size:0.87em;}
+.tbl_1 table td .stra{display:block;color:#055BC2;}
+.tbl_1 table td .price{color:#eb2c06 ;font-size:1.2em}
+.tbl_1 table td .line1 .tit{width:55px;display:inline-block;background:#fff url(https://sslimage.gmarket.co.kr/Gmarket_Mobile_new/480/bg_colone2.gif) no-repeat right 5px;}
+.tbl_1 table td .line1 .thty{display:inline-block;}
+.tbl_1 table td .mobile_py{position:relative;width:100%;height:25px;}
+.tbl_1 table td .mobile_py .tit_agr{position:absolute;top:6px;left:0;width:133px;padding:0}
+.tbl_1 table td .mobile_py .tit_agr input{vertical-align:top;margin-top:1px;}
+.tbl_1 table td .mobile_py .btn_agr{position:absolute;top:0;right:0;height:25px;margin-bottom:1px;border:1px solid #bdbdbd;box-shadow:0 1px 1px #787878}
+.tbl_1 table td .mobile_py .btn_agr span{display:block;width:65px;height:19px;padding-top:5px;border:1px solid #fff;background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fefefe), color-stop(100%,#ececec));font-size:1em;color:#4d4d4d;text-align:center}
+.tbl_1 table td .input{vertical-align:middle}
+.tbl_1 table td .btn_reSend{display:inline-block;height:25px;margin:1px 0 0 7px;border:1px solid #bdbdbd;box-shadow:0 1px 1px #787878;vertical-align:middle}
+.tbl_1 table td .btn_reSend span{display:inline-block;width:65px;height:19px;padding-top:5px;border:1px solid #fff;background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fefefe), color-stop(100%,#ececec));font-size:1em;color:#4d4d4d;text-align:center}
+
+.tbl_1 table td input,
+.tbl_1 table td select{color:#656565;font-size:1em;font-weight:normal;padding:0 5px;}
+
+.tbl_1 table td select.tel1 {height:25px;width:37%;min-width:40px;padding:0 27px 0 0;text-align:center;}
+.tbl_1 table td input.tel2  {height:25px;width:24.5%;min-width:41px;text-align:center;padding:0;}
+.tbl_1 table td input.tel3  {height:25px;width:24.5%;min-width:41px;text-align:center;padding:0;}
+.tbl_1 table td input.regNum{height:25px;width:46%;min-width:66px;text-align:center;padding:0;}
+.tbl_1 table td input.passwd{height:25px;width:50%;min-width:113px;}
+.tbl_1 table td input.text  {height:25px;width:50%;min-width:113px;}
+.tbl_1 table td .authWrap{position:relative;padding-right:79px;}
+.tbl_1 table td .authWrap input{width:100%;height:25px;text-align:center;padding:0;}
+.tbl_1 table td .authWrap a{position:absolute;top:-1px;right:5px;}
+.tbl_1 table td strong.auth_time{color:#eb2c06;}

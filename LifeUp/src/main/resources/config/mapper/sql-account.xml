@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd"> 
+
+<mapper namespace="account">
+	<select id="getUserType" resultType="String">
+		SELECT 1 USER_TYPE FROM CUSTOMER WHERE CUSTOMER_ID = #{userId}
+		UNION
+		SELECT 2 USER_TYPE FROM SALESMAN WHERE SALESMAN_ID = #{userId}
+	</select>
+
+	<select id="getUserInfo" resultType="salesman.vo.account.SessionVO">
+		SELECT customer_id userId, customer_nm userNm, '' vendorId, '' vendorLoc, '1' userType, replace(mobile, '-', '') mobile, '' office_no, 0 star_point, 0 cash_point, '' intro_msg, sido_cd, gugun_cd region
+		     , mail_flag, push_flag, DATE_FORMAT(create_date,'%Y-%m-%d') as create_date, update_date
+		  FROM CUSTOMER A
+		  LEFT JOIN REGION B ON A.REGION = B.GUGUN_CD
+		 WHERE A.customer_id = #{userId}		   
+		UNION
+		SELECT salesman_id userId, salesman_nm userNm, vendor_id vendorId, location vendorLoc, '2' userType, replace(mobile, '-', '') mobile, replace(office_no, '-', '') office_no, star_point, cash_point, intro_msg, '' sido_cd, '' region
+		     , mail_flag ,push_flag, create_date, update_date
+		  FROM SALESMAN
+		 WHERE salesman_id = #{userId}		 
+	</select>
+		
+	<update id="modifyCustomerInfo">
+		UPDATE CUSTOMER
+		   SET PWD      = #{password}		
+			  , MOBILE   = IFNULL(#{mobile}, MOBILE)
+		   	  , REGION   = IFNULL(#{region}, REGION)
+		 WHERE CUSTOMER_ID  = #{userId}
+		   AND PWD          = #{prevPassword}
+	</update>
+	
+	<update id="modifySalesmanInfo">
+		UPDATE SALESMAN
+		   SET PWD         = #{password}
+		     , MOBILE      = IFNULL(#{mobile}   , MOBILE)
+		     , OFFICE_NO   = IFNULL(#{office_no}, OFFICE_NO) 
+		     , VENDOR_ID   = IFNULL(#{vendorId} , VENDOR_ID)
+		     , LOCATION    = IFNULL(#{vendorLoc}, LOCATION)
+		     , INTRO_MSG   = IFNULL(#{intro_msg}, INTRO_MSG)
+		 WHERE SALESMAN_ID = #{userId}	
+		   AND PWD         = #{prevPassword}
+	</update>
+	
+	<select id="getUser" resultType="salesman.vo.account.SessionVO">
+		SELECT customer_id userId, customer_nm userNm, '1' userType, region
+		  FROM CUSTOMER
+		 WHERE customer_id = #{userId}		 
+		   AND pwd         = #{password}
+	</select>
+	
+	<select id="getSalesman" resultType="salesman.vo.account.SessionVO">
+		SELECT salesman_id userId, salesman_nm userNm, vendor_id vendorId, location vendorLoc, '2' userType
+		  FROM SALESMAN
+		 WHERE salesman_id = #{userId}	
+		   AND pwd         = #{password}	 
+	</select>	
+
+	<select id="getUserById" resultType="salesman.vo.account.SessionVO">
+		SELECT customer_id userId, customer_nm userNm, '1' userType
+		  FROM CUSTOMER
+		 WHERE customer_id = #{userId}		 
+	</select>		
+	
+	<select id="getSalesmanById" resultType="salesman.vo.account.SessionVO">
+		SELECT salesman_id userId, salesman_nm userNm, vendor_id vendorId, location vendorLoc, '2' userType
+		  FROM SALESMAN
+		 WHERE salesman_id = #{userId}	 
+	</select>
+	
+	<update id="modifySalesmanPasswd">
+		UPDATE SALESMAN 
+		   SET PWD      = #{password}
+		 WHERE SALESMAN_ID = #{userId}  
+	</update>
+	
+	<update id="modifyCustomerPasswd">
+		UPDATE CUSTOMER 
+		   SET PWD = #{password}
+		 WHERE CUSTOMER_ID = #{userId}  		 
+	</update>		
+	
+	<insert id="registerCustomer">
+		INSERT INTO customer (
+			CUSTOMER_ID, CUSTOMER_NM, PWD, MOBILE, REGION, CREATE_DATE, UPDATE_DATE
+		) VALUES (
+			#{userId}, #{userNm}, #{password}, #{mobile}, #{region}, now(), now()
+		)			
+	</insert>
+
+	<insert id="registerSalesman">
+		INSERT INTO salesman (
+			SALESMAN_ID, SALESMAN_NM, PWD, MOBILE, OFFICE_NO, VENDOR_ID, LOCATION, INTRO_MSG, PHOTO, STAR_POINT, CREATE_DATE, UPDATE_DATE
+		) VALUES (
+			#{userId}, #{userNm}, #{password}, #{mobile}, #{officeNo}, #{vendorId}, #{location}, #{introMsg}, #{photo}, 0, now(), now()
+		)			
+	</insert>
+	
+	<update id="modifyCustomerInfo_agree">
+		UPDATE CUSTOMER
+		 <if test="mail_flag != null">
+		   SET mail_flag      = #{mail_flag}
+		 </if>
+		 <if test="push_flag != null">
+		   SET push_flag      = #{push_flag}
+		 </if>		 
+		 WHERE CUSTOMER_ID  = #{userId}		
+	</update>
+	
+	<update id="modifySalesmanInfo_agree">
+		UPDATE SALESMAN
+		 <if test="mail_flag != null">
+		   SET mail_flag      = #{mail_flag}
+		 </if>
+		 <if test="push_flag != null">
+		   SET push_flag      = #{push_flag}
+		 </if>	
+		 WHERE SALESMAN_ID = #{userId}		
+	</update>
+	
+	<select id="getSalesRankingList" resultType="java.util.HashMap">
+		SELECT A.SALESMAN_ID
+			 , A.SALESMAN_NM
+     		 , A.MOBILE
+     		 , A.OFFICE_NO
+			 , B.VENDOR_ID
+			 , B.VENDOR_NM
+			 , A.LOCATION
+			 , A.INTRO_MSG
+			 , A.PHOTO
+			 , SUM(A.STAR_POINT) STAR_POINT
+		  FROM SALESMAN A 
+		 INNER JOIN VENDOR B
+		    ON A.VENDOR_ID = B.VENDOR_ID
+		 GROUP BY A.SALESMAN_ID
+		 ORDER BY SUM(A.STAR_POINT) DESC
+		 limit 0, 10;	
+	</select>
+	
+	<select id="getSalesRankingListforWeekly" resultType="java.util.HashMap">
+		SELECT A.SALESMAN_ID
+			 , A.SALESMAN_NM
+     		 , A.MOBILE
+     		 , A.OFFICE_NO
+			 , B.VENDOR_ID
+			 , B.VENDOR_NM
+			 , A.LOCATION
+			 , A.INTRO_MSG
+			 , A.PHOTO
+			 , SUM(C.STAR_POINT) STAR_POINT
+		  FROM SALESMAN A 
+		 INNER JOIN VENDOR B
+		    ON A.VENDOR_ID = B.VENDOR_ID
+		 INNER JOIN ESTIMATE_CONTRACT C
+			ON A.SALESMAN_ID = C.SALESMAN_ID
+		 WHERE DATE(C.CREATE_DATE) >= ADDDATE(NOW(), INTERVAL -7 DAY)
+		 GROUP BY A.SALESMAN_ID
+		 ORDER BY SUM(C.STAR_POINT) DESC
+		 limit 0, 5	
+	</select>
+		
+	<select id="getSalesRankingListforMonthly" resultType="java.util.HashMap">
+		SELECT A.SALESMAN_ID
+			 , A.SALESMAN_NM
+     		 , A.MOBILE
+     		 , A.OFFICE_NO
+			 , B.VENDOR_ID
+			 , B.VENDOR_NM
+			 , A.LOCATION
+			 , A.INTRO_MSG
+			 , A.PHOTO
+			 , SUM(C.STAR_POINT) STAR_POINT
+		  FROM SALESMAN A 
+		 INNER JOIN VENDOR B
+		    ON A.VENDOR_ID = B.VENDOR_ID
+		 INNER JOIN ESTIMATE_CONTRACT C
+			ON A.SALESMAN_ID = C.SALESMAN_ID
+		 WHERE DATE(C.CREATE_DATE) >= ADDDATE(NOW(), INTERVAL -31 DAY)
+		 GROUP BY A.SALESMAN_ID
+		 ORDER BY SUM(C.STAR_POINT) DESC
+		 limit 0, 5	
+	</select>					
+	
+	<insert id="registerPoint">
+		INSERT INTO salesman.receipt (
+			REQUEST_DATE, SALESMAN_ID, RECEIPTER_NM, AMOUNT, POINT, STATUS
+		) VALUES (
+			 now(),#{userId}, #{receipter_nm}, #{amount}, #{point}, #{status}
+		)			
+	</insert>
+		
+</mapper>

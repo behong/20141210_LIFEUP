@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:mvc="http://www.springframework.org/schema/mvc"
+	   xmlns:p="http://www.springframework.org/schema/p"
+	   xmlns:c="http://www.springframework.org/schema/c"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="
+	   	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	   	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	   	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+	
+	<bean id="requestService" class="salesman.estimate.service.RequestServiceImpl">
+		<property name="requestDao" ref="requestDao"/>
+	</bean>
+
+	<bean id="requestDao" class="salesman.estimate.dao.RequestDaoImpl">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	
+	<bean id="contractService" class="salesman.estimate.service.ContractServiceImpl">
+		<property name="contractDao" ref="contractDao"/>
+		<property name="_DEFAULT_CASH_POINT" value="300"/>
+	</bean>
+
+	<bean id="contractDao" class="salesman.estimate.dao.ContractDaoImpl">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>	
+
+</beans>

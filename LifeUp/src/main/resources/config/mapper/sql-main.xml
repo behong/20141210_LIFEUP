@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd"> 
+
+<mapper namespace="main">
+
+	<select id="getNoticeList" resultType="java.util.HashMap">
+		SELECT TITLE, CONTENT, CREATE_DATE 
+		  FROM NOTICE 
+		 WHERE USE_YN = 'Y' 
+		 ORDER BY SORT ASC 
+	</select>
+
+
+
+
+
+
+
+
+	
+	<insert id="formInsert">
+		insert into board(title,content,reg_id,create_date) value (#{title},#{content},#{reg_id},sysdate())	
+	</insert>
+	
+	<select id="getList" resultType="java.util.HashMap">
+		select id,title,reg_id from board
+	</select>
+	
+	<select id="getView" resultType="salesman.model.Post">
+	SELECT 
+	id,
+    reg_id,
+    title,
+    content,
+    DATE(create_date) create_date,
+    DATE(update_date) update_date
+	FROM board
+	WHERE id =#{postNo}
+	</select>
+	
+	<update id="editPost" parameterType="salesman.model.Post">
+	update board
+	set title = #{title},content =#{content}
+	where id =#{id}
+	</update>
+	
+	<delete id="erasePost"  parameterType="Integer" >
+	delete from board where id =#{postNo}
+	</delete>
+	
+</mapper>

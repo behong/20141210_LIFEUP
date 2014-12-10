@@ -1,0 +1,96 @@
+
+http://buyworksell.com/2013/09/10/%EC%9A%B0%EB%B6%84%ED%88%AC-jdk1-6-tomcat7-git-maven-설치-및-소스파일-컴파일-후-배포/
+[ jdk 1.6 ]
+
+http://www.oracle.com/technetwork/java/javase/downloads/jdk6u38-downloads-1877406.html
+
+이곳에서 맞는 jdk 를 다운로드 후 서버에 복사.
+
+$ sudo chmod +x jdk-6u38-linux-i586.bin
+
+$ ./jdk-6u38-linux-i586.bin
+
+$ sudo mv jdk1.6.0_38 /usr/lib/jvm/
+
+이때 jvm 아래에 jdk1.6.0_38 이란 폴더가 복사되어야 합니다. 다른 버전의 jdk 를 설치할 수도 있기 때문입니다.
+
+$ sudo update-alternatives –install /usr/bin/javac javac /usr/lib/jvm/jdk1.6.0_38/bin/javac 1
+
+$ sudo update-alternatives –install /usr/bin/java java /usr/lib/jvm/jdk1.6.0_38/bin/java 1
+
+$ sudo update-alternatives –install /usr/bin/javaws javaws /usr/lib/jvm/jdk1.6.0_38/bin/javaws 1
+
+$ sudo update-alternatives –config javac
+
+$ sudo update-alternatives –config java
+
+$ sudo update-alternatives –config javaws
+
+$ java -versuib
+
+$ vi .bashrc
+
+export JAVA_HOME=/usr/bin/java java /usr/lib/jvm/jdk1.6.0_38
+export PATH=$JAVA_HOME/bin:$PATH
+
+ 
+
+[ tomcat7 ]
+
+$ wget http://apache.tt.co.kr/tomcat/tomcat-6/v6.0.37/bin/apache-tomcat-6.0.37.tar.gz
+
+$ tar xvf apache-tomcat-6.0.37.tar.gz
+
+$ mv apache-tomcat-6.0.37 tomcat6
+
+$ cd tomcat6/bin/
+
+$ ./startup.sh
+
+ 
+
+ 
+
+[ maven ]
+
+$ wget http://apache.etoak.com/maven/maven-3/3.0.5/binaries/apache-maven-3.0.5-bin.tar.gz
+$ tar zxf apache-maven-3.0.5-bin.tar.gz
+$ sudo mv apache-maven-3.0.5 /usr/local/
+$ cd /usr/local/
+$ sudo ln -s apache-maven-3.0.5/ maven
+$ sudo ln -s /usr/local/apache-maven-3.0.5/bin/mvn
+$ sudo ln -s /usr/local/apache-maven-3.0.5/bin/mvnDebug
+$ cd apache-maven-3.0.5/conf
+$ vi settings.xml (리포지터리 지정)
+$ cd /usr/local
+$ sudo mv mvn* /usr/bin/
+$ mvn -v
+
+ 
+
+ 
+
+[ git ]
+
+$ sudo apt-get install git
+
+$ git clone xxxx
+
+ 
+
+ 
+
+mvn clean install -Dmaven.test.skip -Ponline
+
+클론한 소스를 메이븐으로 컴파일.
+
+톰캣의 webapps 폴더에 복사 후 톰캣 재시작.
+
+ 
+
+[ mysql ]
+
+$ sudo apt-get install libapache2-mod-auth-mysql
+$ sudo apt-get install mysql-server mysql-client
+
+root 비밀번호 입력 후 설치 완료. 접속하여 원하는 DB 생성. mysql -uroot -p xxx < xxx.sql 로 임포트.

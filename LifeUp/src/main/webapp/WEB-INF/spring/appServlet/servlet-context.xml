@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:mvc="http://www.springframework.org/schema/mvc"
+	   xmlns:p="http://www.springframework.org/schema/p"
+	   xmlns:c="http://www.springframework.org/schema/c"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.4.xsd
+	   	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	   	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	   	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <context:component-scan base-package="salesman"/>  
+    
+    <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"/> 
+    
+    <!-- 서블릿컨네이너상의 exception에 대한 오류 페이지를 연결하는 mvc 설정 -->
+    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="defaultErrorView" value="cmm/error/defaultError"/>
+        <property name="exceptionMappings">
+            <props>
+            	<prop key="salesman.common.support.CustomException">error/bizError</prop>
+                <prop key="org.springframework.dao.DataAccessException">error/dataAccessFailure</prop>
+                <prop key="org.springframework.transaction.TransactionException">error/transactionFailure</prop>
+                <prop key="org.springframework.security.AccessDeniedException">error/accessDenied</prop>                
+            </props>
+        </property>
+    </bean>    
+        
+    <mvc:resources mapping="/resources/**" location="/resources/"/>
+    
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+          p:prefix="/WEB-INF/views/"
+          p:suffix=".jsp"/>    	        
+
+    <mvc:view-controller path="/" view-name="redirect:/main"/>  
+    
+    <!-- file upload (bean id는 반드시 multipartResolver로 사용하라고 한다  -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    	<property name="maxUploadSize" value="10240"/> <!-- 10 kbyte -->
+    </bean>
+    
+<!-- 
+	먼저, <security:http auto-config="true">는 로그인과 관련된 모든 화면을 자동으로 구성해줍니다. 
+	예제에서는 로그인 화면을 커스터마이징하기 위해 <security:form-login>을 추가했습니다. 
+	login-processing-url에는 로그인 처리를 담당하는 로직이 포함된 url이 지정됩니다. 
+	이 부분(/static/j_spring_security_check)은 사실 자동으로 생성되는 부분입니다. 
+	login-page 에 로그인 페이지를 요청 할 수 있는 url을 지정하였으며, 
+	authentication-failure-url은 로그인 실패시 표시할 url 입니다. 여기서, /login은 개발자가 직접 작성해주어야 하는 부분이 되겠습니다. 
+	default-target-url은 사용자가 직접 로그인 페이지에 접근하여 접속에 성공하면 이동 할 페이지를 의미합니다.
+	 
+	<security:logout />에는 사용자가 로그 아웃을 수행 할 url 입니다. 자동으로 생성되는 부분입니다.
+	<security:remember-me />에는 암호를 쿠키에 지정된 시간(초) 동안 저장하는 부분입니다.
+	<security:intercept-url />에는 사용자가 요청하는 url 에 대하여 접근 가능한 권한을 지정하는 부분입니다.
+	예를 들어, /delete 또는 /write에 접근하려면 로그인 한 사용자가 ROLE_USER 권한을 부여 받아야 합니다.
+	 
+	다음은 <security:jdbc-user-service />에서 암호 인증 방식을 지정합니다. 예제는 데이터베이스 인증을 사용합니다.
+	users-by-username-query에는 로그인 페이지에서 사용자가 제공한 계정을 바인드 변수 "?"에 받아 사용자의 username, password, enabled를 검색합니다. 
+	지정된 쿼리에서는 반드시 username, password, enabled 컬럼을 리턴 받아야 합니다.
+	만약, 회원 테이블의 컬럼명과 이름이 서로 다를 때는 아래 예제처럼 컬럼 별칭을 사용하면 됩니다. 
+	enabled 컬럼의 값이 true(1)이면, 로그인이 가능하며, false(0)이면, 로그인이 불가능합니다.
+	 
+	authorities-by-username-query에는 사용자가 제공한 계정을 바인드 변수 "?"에 받아 사용자의 username, authority를 검색합니다. 
+	마찬가지로 지정된 쿼리에서는 반드시 username, authority 컬럼을 리턴 받아야 합니다. 테이블의 컬럼명과 다를 때는 컬럼 별칭을 사용하면 됩니다.
+	 
+	그리고, <security:authentication-manager /> 에서는 데이터베이스에 저장된 암호가 평문 형식이라는 것을 알려주었습니다.
+		
+	 -->
+
+	<!-- 스프링 시큐리티 기본 설정. 로그인 페이지의 url 및 로그아웃 페이지의 url, 쿠기 설정 -->
+	<security:http auto-config="true">
+		<security:form-login login-processing-url="/static/j_spring_security_check"
+			login-page="/admin/login"
+			authentication-failure-url="/admin/login?login_error=t"
+			default-target-url="/admin/list" />
+		<security:logout logout-url="/static/j_spring_security_logout" />
+		<security:remember-me key="myKey" token-validity-seconds="241920" />
+	 	<security:intercept-url pattern="/delete" access="ROLE_USER"/>
+		<security:intercept-url pattern="/write" access="ROLE_USER"/> 
+	</security:http>
+	
+	<!-- 데이터베이스 인증 방식 -->
+	<security:jdbc-user-service data-source-ref="dataSource" id="userService"
+		users-by-username-query="select id as username, password, true as enabled from member where id=?"
+		authorities-by-username-query="select id as username, authority from member where id=?" />
+	
+	<!-- 인증 관리자 설정. 암호는 평문으로 저장되어 있음 -->	
+	<security:authentication-manager>
+		<security:authentication-provider user-service-ref="userService">
+			<security:password-encoder hash="plaintext"></security:password-encoder>
+		</security:authentication-provider>
+	</security:authentication-manager>    
+    
+   	<context:annotation-config />
+
+</beans>

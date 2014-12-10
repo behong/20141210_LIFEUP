@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:mvc="http://www.springframework.org/schema/mvc"
+	   xmlns:p="http://www.springframework.org/schema/p"
+	   xmlns:c="http://www.springframework.org/schema/c"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="
+	   	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	   	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	   	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <!-- json -->      
+	<bean id="messageAdapter" class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+	  <property name="messageConverters">
+	    <list>
+	      <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"/>
+	    </list>
+	  </property>
+	</bean>
+		
+	<!-- session -->  
+	<bean id="storageService" class="salesman.common.service.StorageServiceImpl">
+	</bean>
+	
+	<!-- mailing -->
+	<bean id="mailService" class="salesman.common.service.MailingServiceImpl">  
+	    <property name="mailSender" ref="mailSender" />  
+	</bean>  
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+	  	<property name="host" value="smtp.gmail.com" />
+	  	<property name="port" value="587" />
+	    <property name="username" value="jskoo1981@gmail.com" />  
+	    <property name="password" value="kujs8523" />  
+
+		<property name="javaMailProperties">  
+	       <props>  
+	        	<prop key="mail.transport.protocol">smtp</prop>
+	       		<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+	       </props>  
+	    </property>  
+	</bean>	
+	<bean id="mailingMessage" class="salesman.common.service.MailingMessageImpl">
+		<property name="accountService" ref="accountService"/>    
+	</bean>
+			
+	<!-- codesService -->
+	<bean id="codesService" class="salesman.common.service.CodesServiceImpl">
+		<property name="codesDao" ref="codesDao" />
+	</bean>
+	<bean id="codesDao" class="salesman.common.dao.CodesDaoImpl">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>				
+</beans>

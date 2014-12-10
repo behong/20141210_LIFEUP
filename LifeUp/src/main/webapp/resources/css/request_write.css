@@ -1,0 +1,189 @@
+
+
+.box_btn{
+display: block;
+margin: 0;
+padding: 0;
+font-size: 14px;
+line-height: 1.5;
+font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
+color: #333;
+height: 31px;
+text-align: center;
+}
+.btn_Style{
+width: 76px;
+height: 31px;
+border-color: #790000;
+margin-left: 4px;
+font-size: 13px;
+font-weight: bold;
+line-height: 26px;
+color: #fff;
+background-color: #c91a16;
+background: -webkit-gradient(linear,left top,left bottom,from(#d32319),to(#ba0a12));
+-webkit-box-shadow: inset 1px 1px 0 rgba(255,242,0,0.07), inset -1px -1px 0 rgba(255,242,0,0.07);
+box-shadow: inset 1px 1px 0 rgba(255,242,0,0.07), inset -1px -1px 0 rgba(255,242,0,0.07);
+text-decoration: none;
+display: inline-block;
+padding: 0;
+border: 1px solid;
+text-align: center;
+}
+.form label .input-text,.form .label .input-text {
+  display: block;
+  margin: .25em 0 .5em;
+  padding: .5em;
+  font-size: 1em;
+  border: 1px solid #e9e9e9;
+  border-color: #999 #ccc #cccccc #999;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-box-shadow: inset 1px 1px 2px 0 rgba(0,0,0,0.2);
+  -moz-box-shadow: inset 1px 1px 2px 0 rgba(0,0,0,0.2);
+  box-shadow: inset 1px 1px 2px 0 rgba(0,0,0,0.2);
+  background-color: #f6f6f6;
+  background-image: -webkit-gradient(linear,0% 0,0% 100%,from(#fff),to(#f6f6f6));
+  background-image: -webkit-linear-gradient(top,#fff,#f6f6f6);
+  background-image: -moz-linear-gradient(top,#fff,#f6f6f6);
+  background-image: -ms-linear-gradient(top,#fff,#f6f6f6);
+  background-image: -o-linear-gradient(top,#fff,#f6f6f6);
+  -pie-background: linear-gradient(top,#fff,#f6f6f6);
+  width: 100%;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  font-family: "proxima-nova",'Helvetica Neue',Helvetica,Arial,sans-serif
+}
+.form label .input-text: focus {
+  outline: none;
+  border-color: #48b8b6;
+  box-shadow: 0 0 3px #48b8b6;
+  -moz-box-shadow: 0 0 3px #48b8b6;
+  -webkit-box-shadow: 0 0 3px #48b8b6;
+  background-color: #fff;
+  background-image: -webkit-gradient(linear,0% 0,0% 100%,from(#fff),to(#fff));
+  background-image: -webkit-linear-gradient(top,#fff,#fff);
+  background-image: -moz-linear-gradient(top,#fff,#fff);
+  background-image: -ms-linear-gradient(top,#fff,#fff);
+  background-image: -o-linear-gradient(top,#fff,#fff);
+  -pie-background: linear-gradient(top,#fff,#fff)
+}
+
+/*2014-07-26 추가 */
+.form div .input-selectbox {
+  display: block;
+  margin: .25em 0 .5em;
+  padding: .5em;
+  font-size: 1em;
+  border: 1px solid #e9e9e9;
+  border-color: #999 #ccc #cccccc #999;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-box-shadow: inset 1px 1px 2px 0 rgba(0,0,0,0.2);
+  -moz-box-shadow: inset 1px 1px 2px 0 rgba(0,0,0,0.2);
+  box-shadow: inset 1px 1px 2px 0 rgba(0,0,0,0.2);
+  background-color: #f6f6f6;
+  background-image: -webkit-gradient(linear,0% 0,0% 100%,from(#fff),to(#f6f6f6));
+  background-image: -webkit-linear-gradient(top,#fff,#f6f6f6);
+  background-image: -moz-linear-gradient(top,#fff,#f6f6f6);
+  background-image: -ms-linear-gradient(top,#fff,#f6f6f6);
+  background-image: -o-linear-gradient(top,#fff,#f6f6f6);
+  -pie-background: linear-gradient(top,#fff,#f6f6f6);
+  width: 200px; /*셀렉트 박스 개당 크기 픽스함;  % 하면 너무 큼*/
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  font-family: "Malgun Gothic', '맑은 고딕', sans-serif
+}
+.container { width:100%; }
+
+.area{clear:both;}
+.area1{float:left;}
+.area2{float:left; }
+
+.cars{clear:both;}
+.car_vender1{float:left;}
+.car_vender2{float:left;}
+
+.option{	clear:both; 
+			width: 200px;
+}
+.buyDate{
+			float:left;
+			width: 200px;
+		    padding: .5em;
+}  		
+div .purchase_period .datePicker{
+  clear:both; 
+  display: block;
+  margin: .25em 0 .5em;
+  padding: .5em;
+  font-size: 1em;
+  border: 1px solid #e9e9e9;
+  border-color: #999 #ccc #cccccc #999;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-box-shadow: inset 1px 1px 2px 0 rgba(0,0,0,0.2);
+  -moz-box-shadow: inset 1px 1px 2px 0 rgba(0,0,0,0.2);
+  box-shadow: inset 1px 1px 2px 0 rgba(0,0,0,0.2);
+  background-color: #f6f6f6;
+  background-image: -webkit-gradient(linear,0% 0,0% 100%,from(#fff),to(#f6f6f6));
+  background-image: -webkit-linear-gradient(top,#fff,#f6f6f6);
+  background-image: -moz-linear-gradient(top,#fff,#f6f6f6);
+  background-image: -ms-linear-gradient(top,#fff,#f6f6f6);
+  background-image: -o-linear-gradient(top,#fff,#f6f6f6);
+  -pie-background: linear-gradient(top,#fff,#f6f6f6);
+  width: 200px; /*셀렉트 박스 개당 크기 픽스함;  % 하면 너무 큼*/
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;	
+}	
+.customer_desc{
+			float:left;
+			width: 200px;
+		    padding: .5em;
+}
+div .customer_req .customer_input-text{  
+  clear:both; 
+  display: block;
+  margin: .25em 0 .5em;
+  padding: .5em;
+  font-size: 1em;
+  border: 1px solid #e9e9e9;
+  border-color: #999 #ccc #cccccc #999;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-box-shadow: inset 1px 1px 2px 0 rgba(0,0,0,0.2);
+  -moz-box-shadow: inset 1px 1px 2px 0 rgba(0,0,0,0.2);
+  box-shadow: inset 1px 1px 2px 0 rgba(0,0,0,0.2);
+  background-color: #f6f6f6;
+  background-image: -webkit-gradient(linear,0% 0,0% 100%,from(#fff),to(#f6f6f6));
+  background-image: -webkit-linear-gradient(top,#fff,#f6f6f6);
+  background-image: -moz-linear-gradient(top,#fff,#f6f6f6);
+  background-image: -ms-linear-gradient(top,#fff,#f6f6f6);
+  background-image: -o-linear-gradient(top,#fff,#f6f6f6);
+  -pie-background: linear-gradient(top,#fff,#f6f6f6);
+  width: 50%; /*셀렉트 박스 개당 크기 픽스함;  % 하면 너무 큼*/
+  height: 50%;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;	
+ }
+

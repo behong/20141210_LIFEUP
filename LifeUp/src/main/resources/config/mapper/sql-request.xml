@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd"> 
+
+<mapper namespace="request">
+	
+	<insert id="registerRequest" parameterType="salesman.vo.estimate.RequestVO">
+		INSERT INTO estimate_request (
+			customer_id, region_cd, car_id, car_model, car_option, customer_req, status, purchase_period_cd, hit_cnt, create_date
+		) VALUES (
+			#{customer_id}, #{region_cd}, #{car_id}, #{car_model}, #{car_option}, #{customer_req}, '0001', #{purchase_period_cd}, 0, now()
+		)			
+	</insert>
+
+	<select id="getRequestList20140828" resultType="java.util.HashMap">
+		SELECT 
+		 a.REQUEST_ID 
+		,a.CUSTOMER_ID
+		,(SELECT CUSTOMER_NM from customer where CUSTOMER_ID = a.CUSTOMER_ID) CUSTOMER_NM  
+		,(SELECT CONCAT(SIDO_NM, ' ', GUGUN_NM) from region where GUGUN_CD = a.REGION_CD) REGION_NM 
+		,(SELECT CAR_NM from car_master where CAR_ID = a.CAR_ID) CAR_NM 
+		,a.CAR_MODEL
+		,a.CAR_OPTION
+		,a.CUSTOMER_REQ 
+		,(SELECT CODE_NM from codes where CODE_GROUP = '1001'   AND CODE_CD    = a.STATUS) STATUS_NM  
+		,a.CREATE_DATE
+		,a.UPDATE_DATE
+		,a.PURCHASE_PERIOD_CD
+		,a.HIT_CNT
+		,(SELECT count(request_id ) FROM estimate_request) TOTALCOUNT  
+		FROM estimate_request a  
+		ORDER BY a.request_id DESC 
+    	LIMIT #{startIdx}, #{endIdx}
+	</select>
+
+	<select id="getRequestList" resultType="java.util.HashMap">
+		SELECT @RNUM:=@RNUM+1 AS ROWNUM
+			 , b.*
+		  FROM (
+				  SELECT @RNUM:=0
+				  	   , a.REQUEST_ID
+					   , a.CUSTOMER_ID
+					   , (SELECT CUSTOMER_NM FROM CUSTOMER WHERE CUSTOMER_ID = a.CUSTOMER_ID) CUSTOMER_NM
+					   , a.REGION_CD
+					   , (SELECT CONCAT(SIDO_NM, ' ', GUGUN_NM) FROM REGION WHERE GUGUN_CD = a.REGION_CD) REGION_NM
+					   , c.VENDOR_ID
+					   , c.VENDOR_NM					   
+					   , a.CAR_ID
+					   , b.CAR_NM
+					   , a.CAR_MODEL
+					   , a.CAR_OPTION
+					   , a.CUSTOMER_REQ
+					   , a.STATUS
+					   , (SELECT CODE_NM FROM CODES WHERE CODE_GROUP = '1001' AND CODE_CD = A.STATUS) STATUS_NM
+					   , DATE(a.CREATE_DATE) CREATE_DATE
+					   , DATE(a.UPDATE_DATE) UPDATE_DATE
+					   , a.PURCHASE_PERIOD_CD
+					   , a.HIT_CNT
+				    FROM ESTIMATE_REQUEST a
+				  	LEFT JOIN CAR_MASTER  b ON a.CAR_ID    = b.CAR_ID
+				   INNER JOIN VENDOR      c ON b.VENDOR_ID = c.VENDOR_ID
+				   INNER JOIN REGION      d ON a.REGION_CD = d.GUGUN_CD
+				   WHERE a.REGION_CD = IFNULL(#{region_cd}, a.REGION_CD)
+				     AND c.VENDOR_ID = IFNULL(#{vendor_id}, c.VENDOR_ID)
+				     AND d.SIDO_CD   = IFNULL(#{sido_cd}  , d.SIDO_CD)
+				     AND a.STATUS    = IFNULL(#{status_cd}, a.STATUS)
+				   ORDER BY a.CREATE_DATE DESC
+			   ) b 
+		  limit #{startIdx}, #{endIdx};
+	</select>		
+	
+	<select id="getHotRequestList" resultType="java.util.HashMap">
+		SELECT @RNUM:=@RNUM+1 AS ROWNUM
+			 , b.*
+		  FROM (
+				  SELECT @RNUM:=0
+				  	   , a.REQUEST_ID
+					   , a.CUSTOMER_ID
+					   , (SELECT CUSTOMER_NM FROM CUSTOMER WHERE CUSTOMER_ID = a.CUSTOMER_ID) CUSTOMER_NM
+					   , a.REGION_CD
+					   , (SELECT CONCAT(SIDO_NM, ' ', GUGUN_NM) FROM REGION WHERE GUGUN_CD = a.REGION_CD) REGION_NM
+					   , c.VENDOR_ID
+					   , c.VENDOR_NM					   
+					   , a.CAR_ID
+					   , b.CAR_NM
+					   , a.CAR_MODEL
+					   , a.CAR_OPTION
+					   , a.CUSTOMER_REQ
+					   , a.STATUS
+					   , (SELECT CODE_NM FROM CODES WHERE CODE_GROUP = '1001' AND CODE_CD = A.STATUS) STATUS_NM
+					   , DATE(a.CREATE_DATE) CREATE_DATE
+					   , DATE(a.UPDATE_DATE) UPDATE_DATE
+					   , a.PURCHASE_PERIOD_CD
+					   , a.HIT_CNT
+				    FROM ESTIMATE_REQUEST a
+				  	LEFT JOIN CAR_MASTER  b ON a.CAR_ID    = b.CAR_ID
+				   INNER JOIN VENDOR      c ON b.VENDOR_ID = c.VENDOR_ID
+				   INNER JOIN REGION      d ON a.REGION_CD = d.GUGUN_CD
+				   WHERE a.STATUS = '0001'
+				   ORDER BY a.HIT_CNT DESC
+			   ) b 
+		  limit #{startIdx}, #{endIdx};
+	</select>			
+	
+	<!-- 견적의뢰 상세화면-->
+	<select id="getRequestDetail" resultType="java.util.HashMap">
+		SELECT A.REQUEST_ID
+			 , A.CUSTOMER_ID
+			 , (SELECT CUSTOMER_NM FROM CUSTOMER WHERE CUSTOMER_ID = A.CUSTOMER_ID) CUSTOMER_NM
+		     , A.REGION_CD
+			 , B.SIDO_NM
+		     , B.GUGUN_NM
+			 , A.CAR_ID
+		     , C.CAR_NM
+			 , D.VENDOR_ID
+		     , D.VENDOR_NM
+		     , A.CAR_OPTION
+		     , A.CUSTOMER_REQ
+			 , A.STATUS
+		     , (SELECT CODE_NM FROM CODES WHERE CODE_GROUP = '1001' AND CODE_CD = A.STATUS) STATUS_NM
+			 , DATE(A.CREATE_DATE) CREATE_DATE
+			 , A.PURCHASE_PERIOD_CD
+			 , a.HIT_CNT
+		  FROM ESTIMATE_REQUEST A
+		     , REGION B
+		     , CAR_MASTER C
+		     , VENDOR D
+		 WHERE A.REGION_CD  = B.GUGUN_CD
+		   AND A.CAR_ID     = C.CAR_ID
+		   AND C.VENDOR_ID  = D.VENDOR_ID 
+		   AND A.REQUEST_ID = #{ReqId}
+	</select>
+	
+	<insert id="updateRequestHitCnt">
+		UPDATE estimate_request
+		   SET HIT_CNT    = HIT_CNT + 1
+		 WHERE REQUEST_ID = #{request_id}
+	</insert>		
+	
+	<update id="updateRequestStatus">
+		UPDATE estimate_request
+		   SET STATUS     = #{status}
+		 WHERE REQUEST_ID = #{request_id}
+	</update>
+	
+	<select id="getStatePoint" resultType="java.lang.Integer">
+		select CASH_POINT from salesman.salesman
+		where SALESMAN_ID =#{UserID}
+	</select>
+
+</mapper>

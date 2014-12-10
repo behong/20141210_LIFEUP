@@ -1,0 +1,13 @@
+1. 각각의 *.tag 파일의 ready()에는 fnLoad()를 호출하도록 함
+		
+    $(document).ready(function() {
+		fnLoad();
+	});  
+    
+2. *.tag를 사용하는 jsp에서는 fnLoad()를 구현하여 화면 초기화를 하도록 함
+
+	function fnLoad() {
+		*** 화면 초기화 로직 ***
+	}
+	
+

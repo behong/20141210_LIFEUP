@@ -1,0 +1,64 @@
+정리
+
+리눅스에 git 설치
+
+젠킨스 플러그인 설치
+- git hub
+- ssh over...
+
+젠킨스 > 작업공간 > 설정 > 
+gir:// url 경로 설정
+ex) git://github.com/nayha77/LifeUp.git  (read_only 여야만 함) 
+
+아이디 패스워드 인증할려면 복잡 ssh ...
+
+
+
+
+pom.xml 에 인코딩 설정 변경
+
+    <properties>
+        <java-version>1.6</java-version>
+        <org.springframework-version>3.1.0.RELEASE</org.springframework-version>
+        <org.aspectj-version>1.6.9</org.aspectj-version>
+        <org.slf4j-version>1.5.10</org.slf4j-version>
+        <project.build.sourceencoding>UTF-8</project.build.sourceencoding>
+    	<project.reporting.outputencoding>UTF-8</project.reporting.outputencoding>
+    </properties>
+
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                    <compilerArgument>-Xlint:all</compilerArgument>
+                    <encoding>UTF-8</encoding> 
+                    <showWarnings>true</showWarnings>
+                    <showDeprecation>true</showDeprecation>
+                </configuration>
+            </plugin>
+
+참고사이트
+
+http://lng1982.tistory.com/132
+
+
+hook 설정 
+git 사이트 >  pull 되었다는걸 우리서버에 알려줌 잘 알려줌
+git-hub
+http://lng1982.tistory.com/176
+
+젠킨스 계정
+http://hgburn.vps.phps.kr/jenkins/ (접속 주소)
+
+관리자 
+admin / hg1122
+
+테스트 계정
+test / 1122
+
+계정관리 참고 URL
+http://mobicon.tistory.com/145

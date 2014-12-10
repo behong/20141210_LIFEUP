@@ -1,0 +1,94 @@
+http://blog.beany.co.kr/archives/405
+== 한글깨짐 수정 =======
+
+설정환경
+OS : Ubuntu Server 10.10
+MySQL 5.5.9
+환경설정
+my.cnf 파일을 vi 편집기로 엽니다.
+
+1
+vi my.cnf
+아래의 내용을 추가시켜 줍니다.
+
+[mysql]
+default-character-set = utf8
+ 
+[client]
+default-character-set = utf8
+ 
+[mysqld]
+character-set-client-handshake=FALSE
+init_connect="SET collation_connection = utf8_general_ci"
+init_connect="SET NAMES utf8"
+character-set-server = utf8
+collation-server = utf8_general_ci
+ 
+[mysqldump]
+default-character-set = utf8
+MySQL 서비스를 재시작 합니다.
+
+1
+service mysql restart
+설정확인
+MySQL 에 접속합니다.
+
+1
+mysql -uroot -p mysql
+아래의 명령을 입력하여 정상적으로 반영이 되었는지 확인합니다.
+
+mysql> status
+--------------
+mysql  Ver 14.14 Distrib 5.1.41, for debian-linux-gnu (x86_64) using readline 6.1
+ 
+Connection id:          184
+SSL:                    Not in use
+Current pager:          stdout
+Using outfile:          ''
+Using delimiter:        ;
+Server version:         5.1.41-3ubuntu12.8 (Ubuntu)
+Protocol version:       10
+Connection:             Localhost via UNIX socket
+Client characterset:    utf8
+Server characterset:    utf8
+UNIX socket:            /var/run/mysqld/mysqld.sock
+Uptime:                 56 min 31 sec
+ 
+Threads: 12  Questions: 2994  Slow queries: 0  Opens: 10848  Flush tables: 1  Open tables: 34  Queries per second avg: 0.882
+--------------
+ 
+mysql> show variables like 'character%';
++--------------------------+----------------------------+
+| Variable_name            | Value                      |
++--------------------------+----------------------------+
+| character_set_client     | utf8                       |
+| character_set_connection | utf8                       |
+| character_set_database   | utf8                       |
+| character_set_filesystem | binary                     |
+| character_set_results    | utf8                       |
+| character_set_server     | utf8                       |
+| character_set_system     | utf8                       |
+| character_sets_dir       | /usr/share/mysql/charsets/ |
++--------------------------+----------------------------+
+== 한글깨짐 수정 END=======
+
+
+** 대소문자 구분 해결 링크
+http://oranke.tistory.com/224
+
+
+** mysql 외부 접속 가능하게...참고 url **
+
+INSERT INTO mysql.user (host,user,password) VALUES ('%','root',password('hg1122'));
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%';
+FLUSH PRIVILEGES;
+
+
+grant all privileges on *.* to 'root'@'%' identified by 'hg1122';
+
+
+http://kldp.org/node/26673
+
+http://powerhan.tistory.com/31
+
+

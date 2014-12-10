@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd"> 
+
+<mapper namespace="admin">
+
+    <select id="getCashCount" resultType="int">
+			select count(id) from receipt
+	</select>
+	
+	<update id="modifyCashPoint">
+		update  receipt
+			set status = '0003'  /*0002 입금취소 0003 입금확인 0001 입금확인 요청*/
+			,confirm_date = now()
+			,total_point = (
+				select (cash_point + #{receiptCashPoint} ) ResultPoint
+			     from salesman 
+			   where salesman_id =#{userId}
+			)
+			where id =#{cashId}
+	</update>	
+	
+	<update id="modifySales_Cash">
+		update  salesman
+		set cash_point = ( select total_point from receipt where id =#{cashId} )
+		where salesman_id =#{userId}
+	</update>
+	
+	<select id="getCashList" resultType="salesman.vo.mypage.ReceiptVO" parameterType="int">
+		select 
+		request_date as requestDate
+		,salesman_id
+		,receipter_nm
+		,amount
+		,point
+		,total_point as totalPoint
+		,status
+		,confirm_date as confirmDate
+		,id
+		from receipt
+		order by id desc limit #{page} , 20
+	</select>
+		
+</mapper>

@@ -1,0 +1,33 @@
+-- MYSQL READ 해제
+SET SQL_SAFE_UPDATES=0;
+
+
+
+
+-- like 李몄“
+<select id="autoText" parameterType="String" resultType="AutoCompletionText">
+  select autotext from autocomtext
+   where autotext like concat(#{searchText},'%')
+ </select>
+ 
+
+-- 寃ъ쟻�깅줉�댁슜
+SELECT A.REQUEST_ID
+	 , A.CUSTOMER_ID
+	 , (SELECT CUSTOMER_NM FROM CUSTOMER WHERE CUSTOMER_ID = A.CUSTOMER_ID) CUSTOMER_NM
+	 , A.REGION_CD
+	 , B.VENDOR_ID
+	 , C.VENDOR_NM
+	 , A.CAR_ID
+	 , B.CAR_NM
+	 , A.CAR_MODEL
+     , A.CAR_OPTION
+     , A.CUSTOMER_REQ
+     , A.STATUS STATUS_CD
+	 , (SELECT CODE_NM FROM CODES WHERE CODE_GROUP = '1001' AND CODE_CD = A.STATUS) STATUS_NM
+     , A.CREATE_DATE
+     , A.UPDATE_DATE
+  FROM ESTIMATE_REQUEST A
+ INNER JOIN CAR_MASTER  B ON A.CAR_ID    = B.CAR_ID
+ INNER JOIN VENDOR      C ON B.VENDOR_ID = C.VENDOR_ID
+;
